@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Movie Duels | Menu Creator</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="bodyContainer">
+
+		<button onclick="window.location.href='index.html'">Home Page</button>
+		<div class="menuCreator">
+			<div class="creatorOptions">
+				<h1>Menu Layouter</h1>
+				<p><span style="font-weight: bold;">Current itemDef count:</span> <span id="itemCountDisplay"></span></p>
+				
+				<div class="inputContainer" id="createContainer" style="display: block;">
+					<div class="textInputLabel">
+						<p>Left (px)</p>
+						<input type="text" id="createLeft" placeholder="Left (px)">
+					</div>
+					<div class="textInputLabel">
+						<p>Top (px)</p>
+						<input type="text" id="createTop" placeholder="Top (px)">
+					</div>
+					<div class="textInputLabel">
+						<p>Width (px)</p>
+						<input type="text" id="createWidth" placeholder="Width (px)">
+					</div>
+					<div class="textInputLabel">
+						<p>Height (px)</p>
+						<input type="text" id="createHeight" placeholder="Height (px)">
+					</div>
+					<div class="textInputLabel">
+						<p>Text</p>
+						<input type="text" id="createText" placeholder="Text (optional)">
+					</div>
+					<input type="text" id="createStyle" placeholder="Style (optional)" hidden> <!-- hidden because im too lazy to remove and fix the errors -->
+					<button id="createItemDefBtn" style="width: 100%;">Create itemDef</button>
+				</div>
+
+				<div class="inputContainer" id="editContainer" style="display: none;">
+					<p><span style="font-weight: bold;">Currently Editing Item ID:</span> <span id="currentIdDisplay"></span></p>
+					<div class="textInputLabel">
+						<p>Left (px)</p>
+						<input type="text" id="editLeft" placeholder="Left (px)">
+					</div>
+					<div class="textInputLabel">
+						<p>Top (px)</p>
+						<input type="text" id="editTop" placeholder="Top (px)">
+					</div>
+					<div class="textInputLabel">
+						<p>Width (px)</p>
+						<input type="text" id="editWidth" placeholder="Width (px)">
+					</div>
+					<div class="textInputLabel">
+						<p>Height (px)</p>
+						<input type="text" id="editHeight" placeholder="Height (px)">
+					</div>
+					<div class="textInputLabel">
+						<p>Text</p>
+						<input type="text" id="editText" placeholder="Text (optional)">
+					</div>
+					<input type="text" id="editStyle" placeholder="Style (optional)" hidden> <!-- hidden because im too lazy to remove and fix the errors -->
+					<div style=" display:flex; flex-flow: row;">
+						<button id="editItemDefBtn" style="width: 100%;">Apply Edits</button>
+						<button id="deleteItemDefBtn" style="width: 100%;">Delete itemDef</button>
+					</div>
+					<button id="cancelEdit" style="width: 100%;">Cancel Editing Item</button>
+				</div>
+			</div>
+			<div id="menuDef"><script src="menuCreator.js"></script>
+				<!-- this is where the created itemDefs go -->
+			</div>
+		</div>
+		<p style="font-style: italic; text-align:center;">
+			Create your JKJA Menu Layouts with this tool. Currently only supports menus with a resolution of 640x480<br>
+			You can create itemDefs by entering the values in the input boxes, and clicking the "Create itemDef" button.<br>
+			You can edit the itemDefs by clicking on them, and then editing the values in the input boxes.<br>
+		</p>
+	</div>
+</body>
+</html>
