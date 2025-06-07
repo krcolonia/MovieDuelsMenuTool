@@ -9,8 +9,8 @@ function itemDef(
   top,
   width,
   height,
-  textContent = "",
-  additionalStyle = "",
+  name = "",
+	group = "",
   id = null
 ) {
   const itemDef = document.createElement("button");
@@ -19,9 +19,9 @@ function itemDef(
   itemDef.style.top = top.toString() + "px";
   itemDef.style.width = width.toString() + "px";
   itemDef.style.height = height.toString() + "px";
-  itemDef.textContent = textContent;
-  itemDef.style.cssText += additionalStyle;
+  itemDef.setAttribute("name", name);
   itemDef.setAttribute("id", id);
+  itemDef.setAttribute("group", group);
 	lastId = id;
 	numItems += 1;
 
@@ -39,8 +39,8 @@ function createItemDef() {
   const top = parseInt(document.getElementById("createTop").value);
   const width = parseInt(document.getElementById("createWidth").value);
   const height = parseInt(document.getElementById("createHeight").value);
-  const textContent = document.getElementById("createText").value;
-  const additionalStyle = document.getElementById("createStyle").value;
+  const textContent = document.getElementById("createName").value;
+  const group = document.getElementById("createGroup").value;
 
   if (isNaN(left)) {
     alert("Left value is empty!");
@@ -63,10 +63,10 @@ function createItemDef() {
 	document.getElementById("createTop").value = "";
 	document.getElementById("createWidth").value = "";
 	document.getElementById("createHeight").value = "";
-	document.getElementById("createText").value = "";
-	document.getElementById("createStyle").value = "";
+	document.getElementById("createName").value = "";
+	document.getElementById("createGroup").value = "";
 
-  itemDef(left, top, width, height, textContent, additionalStyle, ++lastId);
+  itemDef(left, top, width, height, textContent, group, ++lastId);
 }
 
 function editItemDef() {
@@ -77,30 +77,33 @@ function editItemDef() {
 
   document.getElementById("createContainer").style.display = "none";
   document.getElementById("editContainer").style.display = "block";
+  document.getElementById("generatedCode").style.display = "flex";
 	document.getElementById("currentIdDisplay").textContent = currentId;
 
   const itemDefToEdit = document.getElementById(currentId);
+
+	document.getElementById("codeArea").textContent = `itemDef 
+{
+	name				"${itemDefToEdit.getAttribute("name")}"
+	group				${itemDefToEdit.getAttribute("group")}
+	style				WINDOW_STYLE_SHADER
+	type				ITEM_TYPE_BUTTON
+	rect				${itemDefToEdit.style.left.replace("px", "")} ${itemDefToEdit.style.top.replace("px", "")} ${itemDefToEdit.style.width.replace("px", "")} ${itemDefToEdit.style.height.replace("px", "")}
+	forecolor			1 1 1 0.8
+	visible				1
+}`;
+
   if (itemDefToEdit) {
     document.getElementById("editLeft").value =
       itemDefToEdit.style.left.replace("px", "");
-    document.getElementById("editTop").value = itemDefToEdit.style.top.replace(
-      "px",
-      ""
-    );
+    document.getElementById("editTop").value = 
+			itemDefToEdit.style.top.replace("px", "");
     document.getElementById("editWidth").value =
       itemDefToEdit.style.width.replace("px", "");
     document.getElementById("editHeight").value =
       itemDefToEdit.style.height.replace("px", "");
-    document.getElementById("editText").value = itemDefToEdit.textContent;
-
-    let styleString = itemDefToEdit.style.cssText;
-
-    styleString = styleString
-      .replace(/left:[^;]+;/g, "")
-      .replace(/top:[^;]+;/g, "")
-      .replace(/width:[^;]+;/g, "")
-      .replace(/height:[^;]+;/g, "");
-    document.getElementById("style").value = styleString.trim();
+    document.getElementById("editName").value = itemDefToEdit.getAttribute("name");
+    document.getElementById("editGroup").value = itemDefToEdit.getAttribute("group");
 
     const currentIdDisplay = document.getElementById("currentIdDisplay");
     if (currentIdDisplay) {
@@ -120,8 +123,8 @@ function applyEdits() {
 	const top = parseInt(document.getElementById("editTop").value);
 	const width = parseInt(document.getElementById("editWidth").value);
 	const height = parseInt(document.getElementById("editHeight").value);
-	const textContent = document.getElementById("editText").value;
-	const additionalStyle = document.getElementById("editStyle").value;
+	const name = document.getElementById("editName").value;
+	const group = document.getElementById("editGroup").value;
 
 	if (isNaN(left)) {
 		alert("Left value is empty!");
@@ -146,8 +149,19 @@ function applyEdits() {
 		itemDefToEdit.style.top = top + "px";
 		itemDefToEdit.style.width = width + "px";
 		itemDefToEdit.style.height = height + "px";
-		itemDefToEdit.textContent = textContent;
-		itemDefToEdit.style.cssText += additionalStyle;
+		itemDefToEdit.setAttribute("name", name)
+		itemDefToEdit.setAttribute("group", group);
+
+		document.getElementById("codeArea").textContent = `itemDef 
+{
+	name				"${itemDefToEdit.getAttribute("name")}"
+	group				${itemDefToEdit.getAttribute("group")}
+	style				WINDOW_STYLE_SHADER
+	type				ITEM_TYPE_BUTTON
+	rect				${itemDefToEdit.style.left.replace("px", "")} ${itemDefToEdit.style.top.replace("px", "")} ${itemDefToEdit.style.width.replace("px", "")} ${itemDefToEdit.style.height.replace("px", "")}
+	forecolor			1 1 1 0.8
+	visible				1
+}`;
 
 		updateItemCountDisplay();
 		console.log("Edits applied to ItemDef:", currentId);
@@ -177,8 +191,9 @@ function deleteItemDef() {
 
 function cancelEdit() {
 	document.getElementById("editContainer").style.display = "none";
+	document.getElementById("generatedCode").style.display = "none";
 	document.getElementById("createContainer").style.display = "block";
-	currentId = ""; // Reset currentId when canceling edit
+	currentId = "";
 	console.log("Edit canceled, currentId reset.");
 }
 

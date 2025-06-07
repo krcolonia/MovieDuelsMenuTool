@@ -33,10 +33,13 @@
 						<input type="text" id="createHeight" placeholder="Height (px)">
 					</div>
 					<div class="textInputLabel">
-						<p>Text</p>
-						<input type="text" id="createText" placeholder="Text (optional)">
+						<p>itemDef Name</p>
+						<input type="text" id="createName" placeholder="itemDef Name">
 					</div>
-					<input type="text" id="createStyle" placeholder="Style (optional)" hidden> <!-- hidden because im too lazy to remove and fix the errors -->
+					<div class="textInputLabel">
+						<p>itemDef Group</p>
+						<input type="text" id="createGroup" placeholder="itemDef Group">
+					</div>
 					<button id="createItemDefBtn" style="width: 100%;">Create itemDef</button>
 				</div>
 
@@ -59,15 +62,22 @@
 						<input type="text" id="editHeight" placeholder="Height (px)">
 					</div>
 					<div class="textInputLabel">
-						<p>Text</p>
-						<input type="text" id="editText" placeholder="Text (optional)">
+						<p>ItemDef Name</p>
+						<input type="text" id="editName" placeholder="ItemDef Name">
 					</div>
-					<input type="text" id="editStyle" placeholder="Style (optional)" hidden> <!-- hidden because im too lazy to remove and fix the errors -->
+					<div class="textInputLabel">
+						<p>itemDef Group</p>
+						<input type="text" id="editGroup" placeholder="itemDef Group">
+					</div>
 					<div style=" display:flex; flex-flow: row;">
 						<button id="editItemDefBtn" style="width: 100%;">Apply Edits</button>
 						<button id="deleteItemDefBtn" style="width: 100%;">Delete itemDef</button>
 					</div>
 					<button id="cancelEdit" style="width: 100%;">Cancel Editing Item</button>
+				</div>
+				<div id="generatedCode">
+					<p style="margin-top:10px;">itemDef .menu code</p>
+					<textarea id="codeArea" readonly></textarea>
 				</div>
 			</div>
 			<div id="menuDef"><script src="menuCreator.js"></script>
